@@ -1,5 +1,5 @@
 // Explicitly target your running Node.js backend port origin
-const backendUrl = "https://winwin-backend-1.onrender.com";
+const backendUrl = "https://profound-queijadas-32e75c.netlify.app";
 const targetUserId = localStorage.getItem("userId") || ""; 
 const token = localStorage.getItem("token");
 const response = await fetch(`${backendUrl}/api/user-data/${targetUserId}`, {
