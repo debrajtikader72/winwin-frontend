@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>WIN_WIN</title>
+         <meta charset="utf-8" />
+         <!-- <meta name="viewport" content="width=device-width,initial-scale=1" /> -->
+         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="styles/front.css">
+    </head>
+    <body>
+        <div class="main">
+            <div class="upper_part">
+                <!-- <div class="balance">Available balance : $ 1874.65</div> -->
+                <div class="balance">Available balance : $ 1874.65</div>
+
+                    <div class="buttons">
+                        <button class="recharge">Recharge</button>
+                        <button class="trend">Trend</button>        
+                    </div>
+
+                    <div>
+                    <img class="refresh" src="photos/refreshh.jpg">
+                </div>
+            </div>
+
+            <div class="Bcone">
+                Bcone
+            </div>
+            <div class="line"></div>
+
+                <div class="middle">
+                    <div class="middle1">
+                        <div class="period">
+                            <!-- <img class="trophy" src="photos/trophy.jpg"> -->
+                            <p>
+                                <span><img class="trophy" src="photos/trophy.jpg"></span>
+                                <span class="period1">Period </span>&nbsp; 
+                                <span class="countdown">Count Down </span>
+                            </p>
+                        
+                        </div>
+                        <p>
+                            <span class="date-display">Loading..</span><span class="counter" >000</span><span id="timer" class="time">--:--</span>
+                            <!-- <span id="current-date" >Loading...</span><span id="counter" >000</span><span id="timer" class="time">--:--</span> -->
+                            <!-- <span class="number"> 20240118348</span><span id="timer" class="time">--:--</span> -->
+                            <!-- <span class="time"> 0 0 : 4 2</span> -->
+                        </p>
+                        <!-- <div class="number">
+                            2024118348
+                        </div>
+                    </div>    
+                    <div class="middle2">
+                        <div class="countdown">
+                            Count Down 
+                        </div> -->
+                        <!-- <div>
+                            0 0 : 4 2
+                        </div> -->
+                    </div> 
+                </div>
+
+
+
+            <div class="threebutton">
+                <p>
+                    <span class="green"><button class="g">Join Green</button></span>
+                    <!-- <span class="violet"></span><button class="v">Join Violet</button></span> -->
+                    <span class="violet"><button class="v">Join Violet</button></span>
+                    <span class="red"><button class="r">Join Red</button></span>
+                </p>
+            </div>
+            <div>
+                <p>
+                    <span class="gap"><button class="zero">0</button></span>
+                    <span class="gap"><button class="zero">1</button></span>
+                    <span class="gap"><button class="zero">2</button></span>
+                    <span class="gap"><button class="zero">3</button></span>
+                    <span class="gap"><button class="zero">4</button></span>
+                </p>
+            </div>
+            <div>
+                <p>
+                    <span class="gap"><button class="zero">5</button></span>
+                    <span class="gap"><button class="zero">6</button></span>
+                    <span class="gap"><button class="zero">7</button></span>
+                    <span class="gap"><button class="zero">8</button></span>
+                    <span class="gap"><button class="zero">9</button></span>
+                </p>
+            </div>
+
+            <div class="position">
+                <img class="trophy2" src="photos/trophy.jpg">
+            </div>
+            <div class="record"> Bcone Record</div>
+
+            <div class="linee"></div>
+            <div>
+                <p>
+                    <span class="per" class="p">Period</span>
+                    <span class="pri" class="p">Price</span>
+                    <span class="numm" class="p">Number</span>
+                    <span class="res" class="p">Result</span>
+                </p>
+            </div>
+            <ul class="period-list"></ul>
+            <div class="dryline"></div>
+
+            
+            <div class="card">   
+                <header>
+                </header>
+
+                <div class="lines" id="lines"></div>
+
+                <div class="footer">
+                <!-- <div class="small">Total lines: <strong id="total">0</strong></div> -->
+                <div class="small"> <strong id="total">0</strong></div>
+                <div class="small"> <span id="todayLabel"></span></div>
+                <!-- <div class="small">Today's date: <span id="todayLabel"></span></div> -->
+                </div>
+            </div>
+
+
+            <!-- <div>
+                <p>
+                    <span class="period-list">20240118346</span>
+                    <span class="pricenumber">45255</span>
+                    <span class="singlenumber">5</span>
+                    <span class="color1"> </span>
+                    <span class="color2"> </span>
+                </p>
+            </div>
+
+            <div class="dryline"></div>
+
+            <div>
+                <p>
+                    <span class="periodnumber">20240118345</span>
+                    <span class="pricenumber">45273</span>
+                    <span class="singlenumber">3</span>
+                    <span class="color"> </span>
+                </p>
+            </div>
+
+            <div class="dryline"></div>
+
+            <div>
+                <p>
+                    <span class="periodnumber">20240118344</span>
+                    <span class="pricenumber">45287</span>
+                    <span class="singlenumber">7</span>
+                    <span class="color"> </span>
+                </p>
+            </div>
+
+            <div class="dryline"></div>
+
+            <div>
+                <p>
+                    <span class="periodnumber">20240118343</span>
+                    <span class="pricenumber">45262</span>
+                    <span class="redsinglenumber">6</span>
+                    <span class="colorred"> </span>
+                </p>
+            </div>
+
+            <div class="dryline"></div>
+
+            <div>
+                <p>
+                    <span class="periodnumber">20240118342</span>
+                    <span class="pricenumber">45270</span>
+                    <span class="redsinglenumber">0</span>
+                    <span class="colorredviolet"> </span>
+                    <span class="color2"> </span>
+                </p>
+            </div>
+
+            <div class="dryline"></div>
+
+            <div>
+                <p>
+                    <span class="periodnumber">20240118341</span>
+                    <span class="pricenumber">45253</span>
+                    <span class="singlenumber">3</span>
+                    <span class="color"> </span>
+                </p>
+            </div>
+            
+            <div class="dryline"></div>
+
+            <div>
+                <p>
+                    <span class="periodnumber">20240118340</span>
+                    <span class="pricenumber">45225</span>
+                    <span class="singlenumber">5</span>
+                    <span class="color1"> </span>
+                    <span class="color2"> </span>
+                </p>
+            </div> -->
+
+            <div class="dryline"></div>
+            <div>
+                <p>
+                    <span class="onetoten">1-10 of 3167 </span>
+                    <span class="arrow">&lt</span>
+                    <span class="arrow">&gt</span>
+                </p>
+            </div>
+
+            <div class="dryline"></div>
+
+            <div class="record">
+                <img class="recordphoto" src="photos/record.jpg" alt="">
+            </div>
+            <!-- <div class="myrecord">My Record</div>
+
+            <div class="line"></div> -->
+
+            <div class="myrecord">My Record</div>
+            <div class="line"></div>
+            <div id="my-record-display"></div>
+            <div id="my-history-container"></div>
+
+            <!-- <div>
+                <p>
+                    <span class="lastnum">20240118346</span>
+                    <span class="success">Success</span>
+                    <span class="profit">+1450.00</span>
+                    <span class="down-arrow">&gt;</span>
+                </p>
+            </div>
+
+            <div class="lastline"> </div>
+
+            <div>
+                <p>
+                    <span class="lastnum">20240118345</span>
+                    <span class="success">Success</span>
+                    <span class="profit">+1900.00</span>
+                    <span class="down-arrow">&gt;</span>
+                </p>
+            </div>
+
+            <div class="lastline"> </div>
+
+            <div>
+                <p>
+                    <span class="lastnum">20240118344</span>
+                    <span class="success">Success</span>
+                    <span class="profit">+1900.00</span>
+                    <span class="down-arrow">&gt;</span>
+                </p>
+            </div>
+
+            <div class="lastline"> </div>
+
+            <div>
+                <p>
+                    <span class="lastnum">20240118343</span>
+                    <span class="success">Success</span>
+                    <span class="profit">+1900.00</span>
+                    <span class="down-arrow">&gt;</span>
+                </p>
+            </div>
+
+            <div class="lastline"> </div>
+
+            <div>
+                <p>
+                    <span class="lastnumloss">20240118342</span>
+                    <span class="successloss">Fail</span>
+                    <span class="profitloss">-900.00</span>
+                    <span class="down-arrowloss">&gt;</span>
+                </p>
+            </div>
+            
+            <div class="lastline"> </div>
+
+            <div>
+                <p>
+                    <span class="lastnum">20240118340</span>
+                    <span class="success">Success</span>
+                    <span class="profit">+1900.00</span>
+                    <span class="down-arrow">&gt;</span>
+                </p>
+                
+            </div>
+
+            <div class="lastline"> </div>
+
+            <div>
+                <p>
+                    <span class="lastnumloss">20240118341</span>
+                    <span class="successloss">Fail</span>
+                    <span class="profitloss">-900.00</span>
+                    <span class="down-arrowloss">&gt;</span>
+                </p>
+            </div> -->
+
+            <div class="lastline"> </div>
+
+            <div class="bottom-nav">
+
+            <div class="nav-item">
+                <img src="photos/home.webp">
+                <span>Home</span>
+            </div>
+
+            <div class="nav-item">
+                <img src="photos/search.webp">
+                <span>Search</span>
+            </div>
+
+            <div class="nav-item active">
+                <img src="photos/trophy.jpg">
+                <span>Win</span>
+            </div>
+
+            <!-- <div class="nav-item" onclick="window.location.href='my.html'">
+                <img src="photos/my_icon.png">
+                <span>My</span>
+            </div> -->
+            <div class="nav-item" onclick="window.location.href='my.html'">
+                <img id="nav-my-dp" src="photos/my_icon.png" style="width: 24px; height: 24px; border-radius: 50%; object-fit: cover;">
+                <span>My</span>
+            </div>
+
+        </div>
+
+           
+
+    </div>
+    <!-- <div id="timer">--:--</div> -->
+
+<div id="popupModal" class="modal-overlay">
+    <div class="size">
+        <div>
+            <span class="positionn">
+                <button class="st">10</button>
+                <button class="st">100</button>
+                <button class="st">1000</button>
+                <button class="st">10000</button>
+            </span>
+        </div>
+        <div class="number-input">
+            <button id="decrement" class="neg">−</button>
+            <input type="number" id="number" value="1" min="0" class="input" />
+            <button id="increment" class="pos">+</button>
+        </div>
+        <div class="done">
+            <span>
+                <button class="cancel" id="cancelBtn">cancel</button>
+                <button class="cancel" id="doneBtn">done</button>
+            </span>
+        </div>
+    </div>
+</div>
+
+
+
+<div id="scannerOverlay" class="modal-overlay" style="display: none; flex-direction: column; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); justify-content: center; align-items: center; z-index: 999999;">
+    <div class="size" style="position: relative; height: auto; padding: 25px; background: #252532; border-radius: 12px; border: 1px solid #323242; text-align: center; max-width: 300px; width: 85%;">
+        
+        <span id="scannerCloseCross" style="position: absolute; top: 10px; right: 15px; color: #ffffff; font-size: 28px; font-weight: bold; cursor: pointer; line-height: 1;">&times;</span>
+        
+        <img src="photos/scaner.jpeg" alt="Scanner" style="width: 220px; height: 220px; border-radius: 10px; margin-top: 15px; display: block; margin-left: auto; margin-right: auto;">
+    </div>
+</div>
+
+    <script src="scripts/script.js"></script>
+
+    </body>
+</html>

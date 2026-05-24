@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - WIN_WIN</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #1a1a24; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .card { background: #252532; padding: 35px 25px; border-radius: 12px; border: 1px solid #323242; width: 100%; max-width: 320px; text-align: center; box-sizing: border-box; }
+        h2 { margin: 0 0 10px 0; color: white; letter-spacing: 1px; font-size: 26px; }
+        .msg { color: #ff4d4d; font-size: 16px; margin-bottom: 15px; font-weight: bold; }
+        input { width: 100%; padding: 12px; margin: 12px 0; border: 1px solid #444456; border-radius: 8px; font-size: 16px; background-color: #323242; color: white; box-sizing: border-box; }
+        input::placeholder { color: #75758a; }
+        input:focus { outline: none; border-color: #5c5cff; }
+        button { width: 100%; padding: 12px; background-color: #5c5cff; color: white; border: none; border-radius: 8px; font-size: 16px; cursor: pointer; margin-top: 15px; font-weight: bold; }
+        button:hover { opacity: 0.9; }
+        .link-group { margin-top: 20px; }
+        .link { color: #8b5cf6; display: block; margin: 8px 0; text-decoration: none; font-size: 14px; font-weight: bold; }
+        .link:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+<div class="card">
+    <h2>LOGIN</h2>
+    <div class="msg" id="msg">Logged out</div>
+    <input type="text" id="mobile" placeholder="Mobile">
+    <input type="password" id="password" placeholder="Password">
+    <button id="loginBtn">Login</button>
+    <div class="link-group">
+        <a href="#" class="link">Forgot Password?</a>
+        <a href="register.html" class="link">Register</a>
+    </div>
+</div>
+<script>
+    document.getElementById("loginBtn").addEventListener("click", async () => {
+        const mobile = document.getElementById("mobile").value;
+        const password = document.getElementById("password").value;
+        const msgBox = document.getElementById("msg");
+        if(!mobile || !password) {
+            msgBox.textContent = "Please fill in all fields";
+            return;
+        }
+        try {
+            // const response = await fetch("http://localhost:5000/api/login", {
+            //     method: "POST",
+            //     headers: { "Content-Type": "application/json" },
+            //     body: JSON.stringify({ mobile, password })
+            // });
+            // const data = await response.json();
+            // if (response.ok) {
+            //     localStorage.setItem('game_session_id', data.userId);
+            //     localStorage.setItem('game_session_mobile', data.mobile);
+            //     localStorage.setItem('userBalance', data.balance);
+            //     localStorage.setItem('myBetHistory', JSON.stringify(data.betHistory || []));
+            //     window.location.href = "index.html";
+            // } else {
+            //     msgBox.textContent = data.message || "Invalid credentials";
+            // }
+            // Ensure your frontend login success logic saves the token like this:
+            const response = await fetch('http://localhost:5000/api/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ mobile, password })
+            });
+
+            const data = await response.json();
+
+        //    if (response.ok) {
+        //         // Clear any leftover data from a previous session
+        //         localStorage.clear(); 
+                
+        //         // Save the fresh user ID
+        //         localStorage.setItem("userId", data.userId); 
+        //         window.location.href = "my.html"; 
+            if (response.ok) {
+                localStorage.clear();
+                localStorage.setItem("token", data.token);
+                localStorage.setItem("userId", data.userId);
+                window.location.href = "my.html";
+             } else {
+                alert(data.message);
+            }
+        } catch (err) {
+            msgBox.textContent = "Connection error to backend";
+        }
+    });
+</script>
+</body>
+</html>

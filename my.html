@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>My Profile Dashboard</title>
+    <link rel="stylesheet" href="styles/front.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ffffff; /* Set background to white */
+            color: #333333; /* Dark text for readability on white */
+            margin: 0;
+            padding: 0;
+            width: 100vw;
+            min-height: 100vh;
+            box-sizing: border-box;
+            overflow-x: hidden; /* Prevents unwanted horizontal layout breaking shifts */
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Ensure all sub-boxes scale fluidly within phone dimensions */
+        .profile-card, .section-box {
+            box-sizing: border-box;
+            width: calc(100% - 20px); /* Automatically handles full screen margins */
+            margin: 10px auto;
+        }
+
+        .profile-card { text-align: center; padding: 20px; background: #f8f9fa; border-radius: 12px; border: 1px solid #eeeeee; }
+        .avatar { width: 90px; height: 90px; border-radius: 50%; object-fit: cover; border: 2px solid #ddd; display: block; margin: 0 auto 10px; }
+        .no-photo { font-style: italic; color: #888; margin-bottom: 10px; }
+        .section-box { border: 1px solid #eeeeee; padding: 15px; border-radius: 12px; background: #ffffff; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .record-row { display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 8px 0; font-size: 14px; }
+        .status-Pending { color: orange; font-weight: bold; }
+        .status-Approved { color: green; font-weight: bold; }
+        .status-Rejected { color: red; font-weight: bold; }
+        .nav-bar { position: fixed; bottom: 0; width: 100%; display: flex; justify-content: space-around; background: #ffffff; border-top: 1px solid #ccc; padding: 10px 0; left: 0; box-sizing: border-box; }
+        
+        input[type="text"], input[type="number"] {
+            background-color: #ffffff;
+            border: 1px solid #cccccc;
+            color: #333333;
+            padding: 8px;
+            border-radius: 6px;
+        }
+        button {
+            cursor: pointer;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            padding: 8px 15px;
+            font-weight: bold;
+            background-color: #f0f0f0;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="profile-card">
+        <div id="photo-container">
+            <img id="profile-img" class="avatar" style="display:none;" />
+            <div id="no-photo-lbl" class="no-photo">No Photo Uploaded</div>
+        </div>
+        <input type="file" id="file-picker" accept="image/*" style="display: none;" onchange="uploadImage(this)">
+        <button onclick="document.getElementById('file-picker').click()">Change Photo</button>
+        <h3 id="display-mobile">ID: Loading...</h3>
+        <h4>Available Balance: ₹<span id="display-balance">0.00</span></h4>
+    </div>
+    
+    <div class="section-box">
+        <h3>Add Bank Account</h3>
+        <input type="text" id="bank-name" placeholder="Account Holder Name" style="width:90%; margin-bottom:5px;"><br>
+        <input type="text" id="bank-acc" placeholder="Account Number" style="width:90%; margin-bottom:5px;"><br>
+        <input type="text" id="bank-ifsc" placeholder="IFSC Code" style="width:90%; margin-bottom:10px;"><br>
+        <button onclick="saveBankDetails()">Save Bank Settings</button>
+    </div>
+
+    <div class="section-box">
+        <h3>Request Withdrawal</h3>
+        <input type="number" id="withdraw-amount" placeholder="Enter Amount" style="width:90%; margin-bottom:10px;"><br>
+        <button onclick="requestWithdrawal()" style="background-color: #28a745; color: white; border: none;">Withdraw Funds</button>
+    </div>
+
+    <div class="section-box">
+        <h3>Withdrawal History Records</h3>
+        <div id="withdrawal-records-list"></div>
+    </div>
+
+    <div style="height: 70px;"></div> 
+    
+    <div class="nav-bar">
+        <div onclick="window.location.href='index.html'">Home</div>
+        <div>Search</div>
+        <div onclick="window.location.href='index.html'">Win</div>
+        <div onclick="window.location.href='my.html'" style="font-weight: bold; color: #007bff;">My</div>
+    </div>
+
+    <script src="scripts/my.js"></script>
+</body>
+</html>

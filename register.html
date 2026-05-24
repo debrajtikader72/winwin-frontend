@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - WIN_WIN</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #1a1a24; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .card { background: #252532; padding: 35px 25px; border-radius: 12px; border: 1px solid #323242; width: 100%; max-width: 340px; text-align: center; box-sizing: border-box; }
+        h2 { margin: 0 0 10px 0; color: white; letter-spacing: 1px; font-size: 26px; }
+        .msg { color: #ff4d4d; font-size: 15px; margin-bottom: 15px; font-weight: bold; }
+        input { width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #444456; border-radius: 8px; font-size: 16px; background-color: #323242; color: white; box-sizing: border-box; }
+        input::placeholder { color: #75758a; }
+        .otp-container { display: flex; gap: 8px; align-items: center; }
+        .otp-btn { background-color: #8b5cf6; color: white; border: none; border-radius: 8px; padding: 12px; font-size: 14px; cursor: pointer; white-space: nowrap; font-weight: bold; }
+        button.submit-btn { width: 100%; padding: 12px; background-color: #5c5cff; color: white; border: none; border-radius: 8px; font-size: 16px; cursor: pointer; margin-top: 15px; font-weight: bold; }
+        button:hover { opacity: 0.9; }
+        .link { color: #8b5cf6; display: block; margin-top: 20px; text-decoration: none; font-size: 14px; font-weight: bold; }
+        .link:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+<div class="card">
+    <h2>REGISTER</h2>
+    <div class="msg" id="msg">Create Account</div>
+    <input type="text" id="mobile" placeholder="Mobile Number">
+    <input type="email" id="email" placeholder="Gmail Address">
+    <div class="otp-container">
+        <input type="text" id="otp" placeholder="Enter OTP Code">
+        <button class="otp-btn" id="otpBtn">Send OTP</button>
+    </div>
+    <input type="password" id="password" placeholder="Password">
+    <button class="submit-btn" id="regBtn">Register</button>
+    <a href="login.html" class="link">Already have an account? Login</a>
+</div>
+<script>
+   document.getElementById("otpBtn").addEventListener("click", async function() {
+        const email = document.getElementById("email").value;
+        const msgBox = document.getElementById("msg");
+        
+        if (!email) {
+            msgBox.style.color = "#ff4d4d";
+            msgBox.textContent = "Please enter an email first";
+            return;
+        }
+
+        // 1. FREEZE THE BUTTON
+        const btn = this;
+        btn.disabled = true;
+        btn.textContent = "Sending...";
+        btn.style.opacity = "0.6";
+
+        try {
+            const response = await fetch("http://localhost:5000/api/send-otp", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ email })
+            });
+            const data = await response.json();
+            
+            if (response.ok) {
+                msgBox.style.color = "#34d399";
+                msgBox.textContent = "OTP sent to your email!";
+                btn.textContent = "Sent!";
+                
+                // Keep it frozen for 30 seconds so you can't accidentally overwrite the cache
+                setTimeout(() => {
+                    btn.disabled = false;
+                    btn.textContent = "Send OTP";
+                    btn.style.opacity = "1";
+                }, 30000);
+
+            } else {
+                msgBox.style.color = "#ff4d4d";
+                msgBox.textContent = data.message;
+                btn.disabled = false;
+                btn.textContent = "Send OTP";
+                btn.style.opacity = "1";
+            }
+        } catch (err) {
+            msgBox.style.color = "#ff4d4d";
+            msgBox.textContent = "Error sending OTP";
+            btn.disabled = false;
+            btn.textContent = "Send OTP";
+            btn.style.opacity = "1";
+        }
+    });
+    document.getElementById("regBtn").addEventListener("click", async () => {
+        const mobile = document.getElementById("mobile").value;
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
+        const otp = document.getElementById("otp").value;
+        const msgBox = document.getElementById("msg");
+        if(!mobile || !email || !password || !otp) {
+            msgBox.style.color = "#ff4d4d";
+            msgBox.textContent = "Please fill in all layout blocks";
+            return;
+        }
+        try {
+            const response = await fetch("http://localhost:5000/api/register", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ mobile, email, password, otp })
+            });
+            const data = await response.json();
+            if (response.ok) {
+                msgBox.style.color = "#34d399";
+                msgBox.textContent = "Account successfully registered!";
+                setTimeout(() => { window.location.href = "login.html"; }, 1200);
+            } else {
+                msgBox.style.color = "#ff4d4d";
+                msgBox.textContent = data.message;
+            }
+        } catch (err) {
+            msgBox.style.color = "#ff4d4d";
+            msgBox.textContent = "Server pipeline processing error";
+        }
+    });
+</script>
+</body>
+</html>
