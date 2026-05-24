@@ -4,7 +4,7 @@ headers: {
 'Authorization': `Bearer ${token}`
 }
 });
-const backendUrl = "https://winwin-backend-1.onrender.com";
+const backendUrl = "https://profound-queijadas-32e75c.netlify.app";
 let myBetHistory = JSON.parse(localStorage.getItem('myBetHistory')) || [];
 let activeBets = JSON.parse(localStorage.getItem('activeBets')) || [];
 let userChoice = "";
