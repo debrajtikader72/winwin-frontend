@@ -51,7 +51,8 @@
         btn.style.opacity = "0.6";
 
         try {
-            const response = await fetch("http://localhost:5000/api/send-otp", {
+            // FIXED: Pointing to your live backend URL
+            const response = await fetch("https://winwin-backend-4.onrender.com/api/send-otp", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ email })
@@ -85,24 +86,29 @@
             btn.style.opacity = "1";
         }
     });
+
     document.getElementById("regBtn").addEventListener("click", async () => {
         const mobile = document.getElementById("mobile").value;
         const email = document.getElementById("email").value;
         const password = document.getElementById("password").value;
         const otp = document.getElementById("otp").value;
         const msgBox = document.getElementById("msg");
+        
         if(!mobile || !email || !password || !otp) {
             msgBox.style.color = "#ff4d4d";
             msgBox.textContent = "Please fill in all layout blocks";
             return;
         }
+        
         try {
-            const response = await fetch("http://localhost:5000/api/register", {
+            // FIXED: Pointing to your live backend URL
+            const response = await fetch("https://winwin-backend-4.onrender.com/api/register", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ mobile, email, password, otp })
             });
             const data = await response.json();
+            
             if (response.ok) {
                 msgBox.style.color = "#34d399";
                 msgBox.textContent = "Account successfully registered!";
