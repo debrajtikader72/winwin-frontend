@@ -1,5 +1,5 @@
 const token = localStorage.getItem("token");
-const backendUrl = "https://winwin-backend-6.onrender.com";
+const backendUrl = "https://winwin-backend-8.onrender.com";
 
 let myBetHistory = JSON.parse(localStorage.getItem('myBetHistory')) || [];
 let activeBets = JSON.parse(localStorage.getItem('activeBets')) || [];
