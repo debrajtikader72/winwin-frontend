@@ -10,42 +10,66 @@ if (!targetUserId || !token) {
 // 1. Initial Page Load Fetch Configuration
 async function loadProfileDashboard() {
     try {
-        // FIXED: Added Authorization header
+        // 1. Show a quick skeleton/loader if you have one
+        
         const response = await fetch(`${backendUrl}/api/user-data/${targetUserId}`, {
             headers: { 'Authorization': `Bearer ${token}` }
         });
         
-        if (!response.ok) throw new Error("Profile record fetch dropped");
+        if (!response.ok) throw new Error("Fetch failed");
         
         const data = await response.json();
         
-        document.getElementById("display-mobile").innerText = "ID / Mobile: " + (data.mobile || "Unknown");
+        // 2. Update these instantly
         document.getElementById("display-balance").innerText = Number(data.balance).toFixed(2);
         
-        const imgEl = document.getElementById("profile-img");
-        const noPhotoEl = document.getElementById("no-photo-lbl");
-        
-        if (data.profilePic) {
-            imgEl.src = data.profilePic;
-            imgEl.style.display = "block";
-            noPhotoEl.style.display = "none";
-        } else {
-            imgEl.style.display = "none";
-            noPhotoEl.style.display = "block";
-        }
-
-        if (data.bankDetails) {
-            document.getElementById("bank-name").value = data.bankDetails.accountName || "";
-            document.getElementById("bank-acc").value = data.bankDetails.accountNumber || "";
-            document.getElementById("bank-ifsc").value = data.bankDetails.ifsc || "";
-        }
-
-        renderWithdrawalRecords(data.withdrawals || []);
+        // 3. Then handle the heavy stuff (history/bank) afterwards
+        setTimeout(() => {
+            renderWithdrawalRecords(data.withdrawals || []);
+        }, 100); 
 
     } catch (err) {
-        console.error("Profile view network load exception error:", err);
+        console.error("Load error:", err);
     }
 }
+// async function loadProfileDashboard() {
+//     try {
+//         // FIXED: Added Authorization header
+//         const response = await fetch(`${backendUrl}/api/user-data/${targetUserId}`, {
+//             headers: { 'Authorization': `Bearer ${token}` }
+//         });
+        
+//         if (!response.ok) throw new Error("Profile record fetch dropped");
+        
+//         const data = await response.json();
+        
+//         document.getElementById("display-mobile").innerText = "ID / Mobile: " + (data.mobile || "Unknown");
+//         document.getElementById("display-balance").innerText = Number(data.balance).toFixed(2);
+        
+//         const imgEl = document.getElementById("profile-img");
+//         const noPhotoEl = document.getElementById("no-photo-lbl");
+        
+//         if (data.profilePic) {
+//             imgEl.src = data.profilePic;
+//             imgEl.style.display = "block";
+//             noPhotoEl.style.display = "none";
+//         } else {
+//             imgEl.style.display = "none";
+//             noPhotoEl.style.display = "block";
+//         }
+
+//         if (data.bankDetails) {
+//             document.getElementById("bank-name").value = data.bankDetails.accountName || "";
+//             document.getElementById("bank-acc").value = data.bankDetails.accountNumber || "";
+//             document.getElementById("bank-ifsc").value = data.bankDetails.ifsc || "";
+//         }
+
+//         renderWithdrawalRecords(data.withdrawals || []);
+
+//     } catch (err) {
+//         console.error("Profile view network load exception error:", err);
+//     }
+// }
 
 // 2. Base64 File Extraction Processing Handler
 function uploadImage(element) {
