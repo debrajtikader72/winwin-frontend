@@ -1,34 +1,27 @@
-// Explicitly target your running Node.js backend port origin
-// const backendUrl = "https://backend-k32p.onrender.com";
 const backendUrl = "https://winwin-backend-9.onrender.com";
 const targetUserId = localStorage.getItem("userId") || ""; 
 const token = localStorage.getItem("token");
 
-// Note: Top-level await requires type="module" in your script tag
-// const response = await fetch(`${backendUrl}/api/user-data/${targetUserId}`, {
-//     headers: {
-//         'Authorization': `Bearer ${token}`
-//     }
-// });
-
-if (!targetUserId) {
-    alert("Session context missing. Please login again.");
+// If they are not logged in, kick them back to login page
+if (!targetUserId || !token) {
     window.location.href = "login.html";
 }
 
 // 1. Initial Page Load Fetch Configuration
 async function loadProfileDashboard() {
     try {
-        const response = await fetch(`${backendUrl}/api/user-data/${targetUserId}`);
+        // FIXED: Added Authorization header
+        const response = await fetch(`${backendUrl}/api/user-data/${targetUserId}`, {
+            headers: { 'Authorization': `Bearer ${token}` }
+        });
+        
         if (!response.ok) throw new Error("Profile record fetch dropped");
         
         const data = await response.json();
         
-        // Display user mobile identity and computational balances
         document.getElementById("display-mobile").innerText = "ID / Mobile: " + (data.mobile || "Unknown");
         document.getElementById("display-balance").innerText = Number(data.balance).toFixed(2);
         
-        // Handle conditional image component mappings
         const imgEl = document.getElementById("profile-img");
         const noPhotoEl = document.getElementById("no-photo-lbl");
         
@@ -41,14 +34,12 @@ async function loadProfileDashboard() {
             noPhotoEl.style.display = "block";
         }
 
-        // Prefill bank input nodes if context fields have strings inside MongoDB
         if (data.bankDetails) {
             document.getElementById("bank-name").value = data.bankDetails.accountName || "";
             document.getElementById("bank-acc").value = data.bankDetails.accountNumber || "";
             document.getElementById("bank-ifsc").value = data.bankDetails.ifsc || "";
         }
 
-        // Render localized historical balance verification lists
         renderWithdrawalRecords(data.withdrawals || []);
 
     } catch (err) {
@@ -66,16 +57,20 @@ function uploadImage(element) {
         const base64String = reader.result;
         
         try {
+            // FIXED: Added Authorization header
             const response = await fetch(`${backendUrl}/api/upload-profile-pic`, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: { 
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}` 
+                },
                 body: JSON.stringify({ userId: targetUserId, imageBase64: base64String })
             });
             
             if (response.ok) {
-                loadProfileDashboard(); // Update screen profile section state
+                loadProfileDashboard(); 
             } else {
-                alert("Failed to upload photo to server database processing layer");
+                alert("Failed to upload photo");
             }
         } catch (err) {
             console.error("Image upload pipeline crash:", err);
@@ -91,28 +86,36 @@ async function saveBankDetails() {
     const ifsc = document.getElementById("bank-ifsc").value;
 
     try {
+        // FIXED: Added Authorization header
         const response = await fetch(`${backendUrl}/api/add-bank`, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
             body: JSON.stringify({ userId: targetUserId, accountName, accountNumber, ifsc })
         });
 
         const resData = await response.json();
         alert(resData.message);
     } catch (err) {
-        alert("Failed to save bank configuration mapping records");
+        alert("Failed to save bank configuration");
     }
 }
 
 // 4. Send Withdrawal Demand Logic
 async function requestWithdrawal() {
     const amount = document.getElementById("withdraw-amount").value;
-    if (!amount || amount <= 0) return alert("Please specify a real transaction extraction quantity value");
+    if (!amount || amount <= 0) return alert("Please enter a valid amount");
 
     try {
+        // FIXED: Added Authorization header
         const response = await fetch(`${backendUrl}/api/withdraw`, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
             body: JSON.stringify({ userId: targetUserId, amount })
         });
 
@@ -121,10 +124,10 @@ async function requestWithdrawal() {
         
         if (response.ok) {
             document.getElementById("withdraw-amount").value = "";
-            loadProfileDashboard(); // Refresh matching account matrix parameters instantly
+            loadProfileDashboard(); 
         }
     } catch (err) {
-        alert("Failed to process transaction request extraction dispatch routing execution loop");
+        alert("Failed to process transaction request");
     }
 }
 
@@ -138,7 +141,6 @@ function renderWithdrawalRecords(items) {
         return;
     }
 
-    // Newest withdrawal files output stacked on top
     [...items].reverse().forEach(w => {
         const row = document.createElement("div");
         row.className = "record-row";
@@ -151,6 +153,12 @@ function renderWithdrawalRecords(items) {
         `;
         container.appendChild(row);
     });
+}
+
+// 6. LOGOUT FUNCTIONALITY
+function logoutUser() {
+    localStorage.clear();
+    window.location.href = "login.html";
 }
 
 // Run mapping initialization steps cleanly on startup loop
