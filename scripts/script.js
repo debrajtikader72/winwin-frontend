@@ -573,24 +573,49 @@ async function updateGlobalGameHistory() {
     }
 }
 
+// async function loadNavProfilePhoto() {
+//     const currentUserId = localStorage.getItem('userId');
+//     if (!currentUserId) return;
+//     try {
+//         // Fixed URL
+//         const response = await fetch(`${backendUrl}/api/user-data/${currentUserId}`);
+//         if (response.ok) {
+//             const data = await response.json();
+//             const navImg = document.getElementById("nav-my-dp");
+//             if (navImg && data.profilePic) {
+//                 navImg.src = data.profilePic;
+//             }
+//         }
+//     } catch (err) {}
+// }
 async function loadNavProfilePhoto() {
     const currentUserId = localStorage.getItem('userId');
-    if (!currentUserId) return;
+    const token = localStorage.getItem('token'); // Get the token
+    
+    if (!currentUserId || !token) return; // Stop if not logged in
+    
     try {
-        // Fixed URL
-        const response = await fetch(`${backendUrl}/api/user-data/${currentUserId}`);
+        // FIXED: Added headers with Authorization
+        const response = await fetch(`${backendUrl}/api/user-data/${currentUserId}`, {
+            headers: { 'Authorization': `Bearer ${token}` }
+        });
+        
         if (response.ok) {
             const data = await response.json();
             const navImg = document.getElementById("nav-my-dp");
+            
             if (navImg && data.profilePic) {
                 navImg.src = data.profilePic;
+                navImg.style.display = "block"; // Ensure it's visible
             }
         }
-    } catch (err) {}
+    } catch (err) {
+        console.error("Failed to load nav photo:", err);
+    }
 }
 
-if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", loadNavProfilePhoto);
-} else {
-    loadNavProfilePhoto();
-}
+// if (document.readyState === "loading") {
+//     document.addEventListener("DOMContentLoaded", loadNavProfilePhoto);
+// } else {
+//     loadNavProfilePhoto();
+// }
