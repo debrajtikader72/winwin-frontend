@@ -34,7 +34,7 @@
     <a href="login.html" class="link">Already have an account? Login</a>
 </div>
 <script>
-   document.getElementById("otpBtn").addEventListener("click", async function() {
+  document.getElementById("otpBtn").addEventListener("click", function() {
         const email = document.getElementById("email").value;
         const msgBox = document.getElementById("msg");
         
@@ -44,83 +44,17 @@
             return;
         }
 
-        // 1. FREEZE THE BUTTON
+        // The professional popup message
+        alert("Demonstration Mode: Live email verification is currently disabled. Please enter any random 6-digit number in the OTP field to proceed with registration.");
+
+        // Update the screen UI
+        msgBox.style.color = "#34d399";
+        msgBox.textContent = "Enter any 6-digit OTP to continue";
+        
         const btn = this;
+        btn.textContent = "Bypassed";
         btn.disabled = true;
-        btn.textContent = "Sending...";
         btn.style.opacity = "0.6";
-
-        try {
-            // FIXED: Pointing to your live backend URL
-            const response = await fetch("https://winwin-backend-9.onrender.com/api/send-otp", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ email })
-            });
-            const data = await response.json();
-            
-            if (response.ok) {
-                msgBox.style.color = "#34d399";
-                msgBox.textContent = "OTP sent to your email!";
-                btn.textContent = "Sent!";
-                
-                // Keep it frozen for 30 seconds so you can't accidentally overwrite the cache
-                setTimeout(() => {
-                    btn.disabled = false;
-                    btn.textContent = "Send OTP";
-                    btn.style.opacity = "1";
-                }, 30000);
-
-            } else {
-                msgBox.style.color = "#ff4d4d";
-                msgBox.textContent = data.message;
-                btn.disabled = false;
-                btn.textContent = "Send OTP";
-                btn.style.opacity = "1";
-            }
-        } catch (err) {
-            msgBox.style.color = "#ff4d4d";
-            msgBox.textContent = "Error sending OTP";
-            btn.disabled = false;
-            btn.textContent = "Send OTP";
-            btn.style.opacity = "1";
-        }
-    });
-
-    document.getElementById("regBtn").addEventListener("click", async () => {
-        const mobile = document.getElementById("mobile").value;
-        const email = document.getElementById("email").value;
-        const password = document.getElementById("password").value;
-        const otp = document.getElementById("otp").value;
-        const msgBox = document.getElementById("msg");
-        
-        if(!mobile || !email || !password || !otp) {
-            msgBox.style.color = "#ff4d4d";
-            msgBox.textContent = "Please fill in all layout blocks";
-            return;
-        }
-        
-        try {
-            // FIXED: Pointing to your live backend URL
-            const response = await fetch("https://winwin-backend-9.onrender.com/api/register", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ mobile, email, password, otp })
-            });
-            const data = await response.json();
-            
-            if (response.ok) {
-                msgBox.style.color = "#34d399";
-                msgBox.textContent = "Account successfully registered!";
-                setTimeout(() => { window.location.href = "login.html"; }, 1200);
-            } else {
-                msgBox.style.color = "#ff4d4d";
-                msgBox.textContent = data.message;
-            }
-        } catch (err) {
-            msgBox.style.color = "#ff4d4d";
-            msgBox.textContent = "Server pipeline processing error";
-        }
     });
 </script>
 </body>
