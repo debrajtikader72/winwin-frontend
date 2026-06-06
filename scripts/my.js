@@ -5,11 +5,11 @@ const targetUserId = localStorage.getItem("userId") || "";
 const token = localStorage.getItem("token");
 
 // Note: Top-level await requires type="module" in your script tag
-const response = await fetch(`${backendUrl}/api/user-data/${targetUserId}`, {
-    headers: {
-        'Authorization': `Bearer ${token}`
-    }
-});
+// const response = await fetch(`${backendUrl}/api/user-data/${targetUserId}`, {
+//     headers: {
+//         'Authorization': `Bearer ${token}`
+//     }
+// });
 
 if (!targetUserId) {
     alert("Session context missing. Please login again.");
