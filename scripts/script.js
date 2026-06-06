@@ -160,7 +160,7 @@ async function fetchIndianDate() {
         if (graphicalCrossBtn && structuralOverlay) {
             graphicalCrossBtn.addEventListener("click", () => {
                 structuralOverlay.style.display = "none";
-                alert("Please provide a screenshot of the Gmail inbox where you received the OTP during registration, after completing the payment");
+                alert("Please provide a screenshot of the Gmail inbox (pinutikader72@gmail.com), after completing the payment");
             });
         }
     };
