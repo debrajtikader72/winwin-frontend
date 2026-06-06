@@ -34,7 +34,7 @@
     <a href="login.html" class="link">Already have an account? Login</a>
 </div>
 <script>
-  document.getElementById("otpBtn").addEventListener("click", function() {
+    document.getElementById("otpBtn").addEventListener("click", function() {
         const email = document.getElementById("email").value;
         const msgBox = document.getElementById("msg");
         
@@ -56,6 +56,28 @@
         btn.disabled = true;
         btn.style.opacity = "0.6";
     });
+  // document.getElementById("otpBtn").addEventListener("click", function() {
+  //       const email = document.getElementById("email").value;
+  //       const msgBox = document.getElementById("msg");
+        
+  //       if (!email) {
+  //           msgBox.style.color = "#ff4d4d";
+  //           msgBox.textContent = "Please enter an email first";
+  //           return;
+  //       }
+
+  //       // The professional popup message
+  //       alert("Demonstration Mode: Live email verification is currently disabled. Please enter any random 6-digit number in the OTP field to proceed with registration.");
+
+  //       // Update the screen UI
+  //       msgBox.style.color = "#34d399";
+  //       msgBox.textContent = "Enter any 6-digit OTP to continue";
+        
+  //       const btn = this;
+  //       btn.textContent = "Bypassed";
+  //       btn.disabled = true;
+  //       btn.style.opacity = "0.6";
+  //   });
 </script>
 </body>
 </html>
