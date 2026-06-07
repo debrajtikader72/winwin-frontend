@@ -8,12 +8,19 @@ let currentUserId = localStorage.getItem('userId') || null;
 if (!currentUserId) {
 window.location.href = "login.html";
 }
-let savedBalance = parseFloat(localStorage.getItem('userBalance')) || 1874.65;
-if (!savedBalance || isNaN(savedBalance)) {
-savedBalance = 1874.65;
+// let savedBalance = parseFloat(localStorage.getItem('userBalance')) || 1874.65;
+// if (!savedBalance || isNaN(savedBalance)) {
+// savedBalance = 1874.65;
+// }
+// localStorage.setItem('userBalance', savedBalance);
+// document.querySelector(".balance").textContent = `Available balance : $ ${savedBalance.toFixed(2)}`;
+let savedBalance = localStorage.getItem('userBalance');
+if (savedBalance !== null && !isNaN(savedBalance)) {
+    document.querySelector(".balance").textContent = `Available balance : $ ${parseFloat(savedBalance).toFixed(2)}`;
+} else {
+    document.querySelector(".balance").textContent = `Loading balance...`;
 }
-localStorage.setItem('userBalance', savedBalance);
-document.querySelector(".balance").textContent = `Available balance : $ ${savedBalance.toFixed(2)}`;
+
 async function syncLocalContextFromServer() {
 if (!currentUserId || !token) return;
 try {
